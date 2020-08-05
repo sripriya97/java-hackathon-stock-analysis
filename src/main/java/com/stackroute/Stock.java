@@ -29,7 +29,7 @@ public class Stock {
         int lineCount = 0;
         File file = new File(this.filePath);
         if(file.length()==0){
-            throw new EmptyFileException("EmptyFileException");
+            throw new EmptyFileException();
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath))) {
             reader.readLine(); //skip header line
@@ -49,7 +49,7 @@ public class Stock {
     public StockRecord[] readFile() throws ParseException, EmptyFileException {
         File file = new File(this.filePath);
         if(file.length()==0){
-            throw new EmptyFileException("EmptyFileException");
+            throw new EmptyFileException();
         }
         List<StockRecord> listStockRecord = new ArrayList<>();
         String[] dataValues = new String[7]; //there are 7 headers
@@ -82,7 +82,7 @@ public class Stock {
     /* This method is used to find absolute return between the first and last records */
     public double findAbsoluteReturn(StockRecord[] records) throws NoRecordFoundException {
         if(records.length==0){
-            throw new NoRecordFoundException("NoRecordsFoundException");
+            throw new NoRecordFoundException();
         }
         double firstReturn = records[0].getDayClosingPrice();
         double lastReturn = records[records.length-1].getDayClosingPrice();
@@ -94,7 +94,7 @@ public class Stock {
     public double findClosingStockPrice(String date) throws NoRecordFoundException, ParseException {
         Date reqdDate = new SimpleDateFormat("yyyy-mm-dd").parse(date);
         if(Arrays.stream(this.stockRecordList).filter(stockRecord -> stockRecord.getDate().equals(reqdDate)).count()==0){
-            throw new NoRecordFoundException("NoRecordsFoundException");
+            throw new NoRecordFoundException();
         }
         return  Arrays.stream(this.stockRecordList)
                 .filter(stockRecord -> stockRecord.getDate().equals(reqdDate))
@@ -109,7 +109,7 @@ public class Stock {
 
         if((Arrays.stream(this.stockRecordList).filter(stockRecord -> stockRecord.getDate().equals(fromDateVal)).count()==0)
             ||(Arrays.stream(this.stockRecordList).filter(stockRecord -> stockRecord.getDate().equals(toDateVal)).count()==0)){
-            throw new NoRecordFoundException("NoRecordsFoundException");
+            throw new NoRecordFoundException();
         }
 
         double fromDateClosing = Arrays.stream(records)
@@ -130,7 +130,7 @@ public class Stock {
 
         if((Arrays.stream(this.stockRecordList).filter(stockRecord -> stockRecord.getDate().equals(investmentDateVal)).count()==0)
                 ||(Arrays.stream(this.stockRecordList).filter(stockRecord -> stockRecord.getDate().equals(evaluationDateVal)).count()==0)){
-            throw new NoRecordFoundException("NoRecordsFoundException");
+            throw new NoRecordFoundException();
         }
 
         double investmentDateClosing = Arrays.stream(this.stockRecordList)
@@ -159,10 +159,7 @@ public class Stock {
     }
 
     /* this is used to sort the records in ascending order by date */
-    public StockRecord[] sortByDate(StockRecord[] stockRecords) throws NoRecordFoundException {
-        if(stockRecords.length==0){
-            throw new NoRecordFoundException("NoRecordsFoundException");
-        }
+    public StockRecord[] sortByDate(StockRecord[] stockRecords) {
         Comparator<StockRecord> sortByDateAsc = (stockRecord1, stockRecord2) -> stockRecord1.getDate().compareTo(stockRecord2.getDate());
         Arrays.sort(stockRecords,sortByDateAsc);
         return stockRecords;
