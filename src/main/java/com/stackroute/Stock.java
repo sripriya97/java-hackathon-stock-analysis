@@ -75,9 +75,9 @@ public class Stock {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        int index =0;
+        int index =-1;
         for (StockRecord record:listStockRecord) {
-            stockRecordList[index] = record;
+            stockRecordList[index++] = record;
         }
         return stockRecordList;
 
