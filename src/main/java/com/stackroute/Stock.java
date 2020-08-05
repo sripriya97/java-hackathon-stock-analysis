@@ -110,9 +110,9 @@ public class Stock {
 
     /* This method is used to find absolute return between the two dates */
     private double findAbsoluteReturn(StockRecord[] records, String fromDate, String toDate) throws ParseException, NoRecordFoundException, EmptyFileException {
-        if(records.length==0){
+        try{if(records.length==0){
             throw new EmptyFileException();
-        }
+        }}catch (EmptyFileException e){e.getMessage();}
         Date fromDateVal = new SimpleDateFormat("yyyy-mm-dd").parse(fromDate);
         Date toDateVal = new SimpleDateFormat("yyyy-mm-dd").parse(toDate);
 
