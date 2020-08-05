@@ -75,7 +75,11 @@ public class Stock {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return stockRecordList = (StockRecord[]) listStockRecord.toArray();
+        int index =0;
+        for (StockRecord record:listStockRecord) {
+            stockRecordList[index] = record;
+        }
+        return stockRecordList;
 
     }
 
