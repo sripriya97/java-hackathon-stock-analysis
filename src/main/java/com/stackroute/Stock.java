@@ -81,7 +81,7 @@ public class Stock {
     }
 
     /* This method is used to find absolute return between the first and last records */
-    public double findAbsoluteReturn(StockRecord[] records) throws EmptyFileException {
+    public double findAbsoluteReturn(StockRecord[] records) {
         try{if(records.length==0){
             throw new EmptyFileException();}
         }catch (EmptyFileException e){
@@ -109,7 +109,7 @@ public class Stock {
     }
 
     /* This method is used to find absolute return between the two dates */
-    private double findAbsoluteReturn(StockRecord[] records, String fromDate, String toDate) throws ParseException, NoRecordFoundException, EmptyFileException {
+    private double findAbsoluteReturn(StockRecord[] records, String fromDate, String toDate) throws ParseException, NoRecordFoundException {
         try{if(records.length==0){
             throw new EmptyFileException();
         }}catch (EmptyFileException e){e.getMessage();}
@@ -156,9 +156,11 @@ public class Stock {
     }
 
     /* this is used to find the highest closing price for the stock */
-    public double findHighestClosingStockPrice() throws EmptyFileException {
-        if(this.stockRecordList.length==0){
+    public double findHighestClosingStockPrice() {
+        try{if(this.stockRecordList.length==0){
             throw new EmptyFileException();
+        }}catch (EmptyFileException e){
+            e.getMessage();
         }
         return Arrays.stream(this.stockRecordList)
                 .max((stockRecord1, stockRecord2) -> (int) (stockRecord1.getDayClosingPrice()-stockRecord2.getDayClosingPrice()))
@@ -166,9 +168,11 @@ public class Stock {
     }
 
     /* this is used to find the lowest closing price for the stock */
-    public double findLowestClosingStockPrice() throws EmptyFileException {
-        if(this.stockRecordList.length==0){
+    public double findLowestClosingStockPrice() {
+        try{if(this.stockRecordList.length==0){
             throw new EmptyFileException();
+        }}catch (EmptyFileException e){
+            e.getMessage();
         }
         return Arrays.stream(this.stockRecordList)
                 .min((stockRecord1, stockRecord2) -> (int) (stockRecord1.getDayClosingPrice()-stockRecord2.getDayClosingPrice()))
