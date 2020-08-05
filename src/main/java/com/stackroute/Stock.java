@@ -27,11 +27,14 @@ public class Stock {
     */
     public int countLines() {
         int lineCount = 0;
+        String input;
         File file = new File(this.filePath);
         try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath))) {
             reader.readLine(); //skip header line
-            while (reader.readLine() != null) {
+            while ((input =reader.readLine() )!= null) {
+                if(input.split(",")[0]!=null){ //checking if date not null
                 lineCount++; //count other lines
+                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
