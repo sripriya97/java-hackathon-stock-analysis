@@ -77,9 +77,9 @@ public class Stock {
         }
         int index =-1;
         for (StockRecord record:listStockRecord) {
-            stockRecordList[index++] = record;
+            this.stockRecordList[index++] = record;
         }
-        return stockRecordList;
+        return this.stockRecordList;
 
     }
 
